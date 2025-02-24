@@ -1,5 +1,5 @@
-const { consumeQueue } = require("./consumeQueue");
-const { sendToQueue } = require("./createQueue");
+const { consumeMessage } = require("./utils/consumeMessage");
+const { produceMessage } = require("./utils/produceMessage");
 
 async function processOrder(order) {
   const paymentQueue = "queue.payment";
@@ -7,13 +7,13 @@ async function processOrder(order) {
   // validate order stuff
 
   // Send the order the payment queue
-  await sendToQueue(paymentQueue, order);
+  await produceMessage(paymentQueue, order);
 }
 
 async function consumeOrderQueue() {
   const orderQueue = "queue.order";
 
-  consumeQueue(orderQueue, processOrder);
+  consumeMessage(orderQueue, processOrder);
 }
 
 module.exports = {

@@ -1,14 +1,15 @@
 const amqp = require("amqplib");
 const AMQP_URL = `amqp://localhost:5672`;
 
-async function consumeQueue(queueName, callback) {
+// For original consumption function refer to https://github.com/harblaith7/RabbitMQ-Tutorial/blob/main/final/notifications-api/index.js
+// Here the difference is I passed in queueName and callback function so that the code is reusable
+
+async function consumeMessage(queueName, callback) {
   try {
     const connection = await amqp.connect(AMQP_URL);
     const channel = await connection.createChannel();
 
     await channel.assertQueue(queueName);
-
-    console.log(`Waiting for messages in ${queueName}`);
 
     channel.consume(queueName, (message) => {
       if (message) {
@@ -28,5 +29,5 @@ async function consumeQueue(queueName, callback) {
 }
 
 module.exports = {
-  consumeQueue,
+  consumeMessage,
 };

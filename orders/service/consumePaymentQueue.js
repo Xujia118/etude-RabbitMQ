@@ -1,4 +1,4 @@
-const { consumeQueue } = require("./consumeQueue");
+const { consumeMessage } = require("./utils/consumeMessage");
 
 async function processPayment(payment) {
   // Process payment, update database stuff
@@ -9,7 +9,7 @@ async function processPayment(payment) {
 async function consumePaymentQueue() {
   const paymentQueue = "queue.payment";
 
-  consumeQueue(paymentQueue, processPayment);
+  consumeMessage(paymentQueue, processPayment);
 }
 
 module.exports = {

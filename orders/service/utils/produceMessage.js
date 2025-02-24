@@ -1,7 +1,7 @@
 const amqp = require("amqplib");
 const AMQP_URL = `amqp://localhost:5672`;
 
-async function sendToQueue(queueName, data) {
+async function produceMessage(queueName, data) {
   try {
     // Create connection and channel
     const connection = await amqp.connect(AMQP_URL);
@@ -23,4 +23,4 @@ async function sendToQueue(queueName, data) {
   }
 }
 
-module.exports = { sendToQueue };
+module.exports = { produceMessage };
